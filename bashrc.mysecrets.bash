@@ -1,5 +1,5 @@
 if [ -z "$SECRETEXT" ]; then
-    SECRETEXT="banana"
+    SECRETEXT="sec"
 fi
 
 mysecretsfile() {

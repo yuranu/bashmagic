@@ -3,7 +3,7 @@
 alias la='ls -lah'
 alias ll='ls -Fls'
 
-alias vim=vimx
+alias edit='vim'
 alias ebrc='vim ~/.bashrc'
 alias cls='clear'
 
