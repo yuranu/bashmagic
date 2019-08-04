@@ -7,9 +7,34 @@ is_tmux() {
 	return 0
 }
 
+ssh_cmd_hostname() {
+	local SSH_FLAGS=46AaCfGgKkMNnqsTtVvXxYy
+	local DEST_HOSTNAME='ssh'
+	for ((i=1; i <= $#; i++)); do
+		var=${!i}
+    	if [[ "$var" == -* ]]; then
+			local flag=${var:1}
+			if [[ ! "$SSH_FLAGS" == *"$flag"* ]]; then
+				((i++))
+			fi
+		else
+			DEST_HOSTNAME="$var"
+			break
+		fi
+	done
+
+	DEST_HOSTNAME=$(echo "$DEST_HOSTNAME" | grep -Po '.*@\K.*|.*')
+
+	if [ -z "$DEST_HOSTNAME" ]; then
+		DEST_HOSTNAME=ssh
+	fi
+
+	echo $DEST_HOSTNAME
+}
+
 ssh() {
 	if [ is_tmux ]; then
-		tmux rename-window "$(echo $* | cut -d . -f 1)"
+		tmux rename-window "$(ssh_cmd_hostname $@)"
 		command ssh "$@"
 		tmux set-window-option automatic-rename "on" 1>/dev/null
 	else
