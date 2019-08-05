@@ -5,7 +5,6 @@ update-bashmagic() {
     cd $BASHMAGICDIR
     git pull
     cd "$PREV_DIR"
-    source ~/.bashrc
 }
 
 for filename in $BASHMAGICDIR/bashrc.*.bash; do
