@@ -29,7 +29,7 @@ set-option -g automatic-rename on
 set-option -g automatic-rename-format '#{b:pane_current_path}'
 
 # Truecolor
-set -g default-terminal "xterm"
+# set -g default-terminal "xterm"
 set-option -sa terminal-overrides ",xterm*:Tc"
 
 # Copy mode bindings
