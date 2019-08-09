@@ -99,7 +99,7 @@ distribution() {
 }
 
 # Copy file with a progress bar
-cpp() {
+ccp() {
 	rsync --info=progress2 "$@"
 }
 
