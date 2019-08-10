@@ -1,5 +1,9 @@
 make_PS1() {
     PS1=""
+	# Python virtual env
+	if [ "$VIRTUAL_ENV" ]; then
+		PS1+="\[${COL_LIGHTBLUE}\]($(basename ${VIRTUAL_ENV})) "
+	fi
     # Username
     PS1+="\[${COL_YELLOW}\]\u"
     # CWD
@@ -10,10 +14,11 @@ make_PS1() {
         PS1+="\[${COL_LIGHTGREEN}\][${GIT_BRANCH}]"
     fi
     if [[ $EUID -ne 0 ]]; then
-        PS1+="\[${COL_GREEN}\]>\[${COL_NOCOLOR}\] " # Normal user
+        PS1+="\[${COL_GREEN}\]>" # Normal user
     else
-        PS1+="\[${COL_RED}\]!!!>\[${COL_NOCOLOR}\] " # Root user
+        PS1+="\[${COL_RED}\]!!!>" # Root user
     fi
+	PS1+="\[${COL_NOCOLOR}\] "
 }
 
 PROMPT_COMMAND=make_PS1
