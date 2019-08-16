@@ -13,7 +13,7 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 " let Vundle manage Vundle, required
-source %:p:h/vimrc.plugins.conf
+source <sfile>:p:h/vimrc.plugins.conf
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
