@@ -62,8 +62,11 @@ syntax on
 colorscheme onedark
 let g:airline_theme='badcat'
 
-:hi CursorLine   cterm=NONE ctermbg=17 guibg=#00005f
+:hi CursorLine   cterm=NONE ctermbg=17 guibg=#00002f
 :nnoremap <Leader>c :set cursorline!<CR>
+
+:autocmd InsertEnter * :hi CursorLine   cterm=NONE ctermbg=darkred  guibg=#2f0000
+:autocmd InsertLeave * :hi CursorLine   cterm=NONE ctermbg=darkblue guibg=#00002f
 
 set mouse=a
 set clipboard=unnamedplus
