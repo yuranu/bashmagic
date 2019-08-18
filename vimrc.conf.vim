@@ -62,10 +62,10 @@ syntax on
 colorscheme onedark
 let g:airline_theme='badcat'
 
-:hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
-:hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+:hi CursorLine   cterm=NONE ctermbg=17 guibg=#00005f
 :nnoremap <Leader>c :set cursorline!<CR>
 
 set mouse=a
 set clipboard=unnamedplus
+set cursorline
 
