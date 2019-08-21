@@ -13,7 +13,7 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 " let Vundle manage Vundle, required
-source <sfile>:p:h/vimrc.plugins.conf
+source <sfile>:p:h/vimrc.plugins.vim
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -56,6 +56,11 @@ set tabstop=4
 set shiftwidth=4
 set listchars=tab:→\ ,trail:•
 set list
+
+" CtrlP
+let g:ctrlp_map = '<C-P>'
+let g:ctrlp_cmd = 'CtrlP'
+map <C-O> :CtrlPCmdPalette<CR>
 
 " Colorschemes
 syntax on
