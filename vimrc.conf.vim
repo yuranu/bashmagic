@@ -61,6 +61,7 @@ set list
 let g:ctrlp_map = '<C-P>'
 let g:ctrlp_cmd = 'CtrlP'
 map <C-O> :CtrlPCmdPalette<CR>
+map <S-F> :BLine<CR>
 
 " Colorschemes
 syntax on
