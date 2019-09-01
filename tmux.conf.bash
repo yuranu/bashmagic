@@ -39,3 +39,6 @@ bind-key -T copy-mode 'y' send-keys -X copy-pipe-and-cancel 'xclip -i -f -select
 
 # Save tmux buffer
 bind-key P command-prompt -p 'save history to filename:' -I '~/tmux.history' 'capture-pane -S -32768 ; save-buffer %1 ; delete-buffer'
+
+# Synchronize panes
+bind-key e setw synchronize-panes
