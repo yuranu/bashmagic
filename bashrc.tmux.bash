@@ -51,3 +51,13 @@ ipython() {
 		command ipython "$@"
 	fi
 }
+
+notes() {
+	if [ is_tmux ]; then
+		tmux rename-window NOTES
+		edit $NOTES_FILE
+		tmux set-window-option automatic-rename "on" 1>/dev/null
+	else
+		edit $NOTES_FILE
+	fi
+}
