@@ -8,7 +8,7 @@ alias ebrc='vim ~/.bashrc'
 alias cls='clear'
 
 vimlg() {
-	vim "$1" -c 'setfiletype log'
+	vim -R -M "$1" -c 'setfiletype log'
 }
 
 alias home='cd ~'
