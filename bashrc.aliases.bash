@@ -7,6 +7,10 @@ alias edit='vim'
 alias ebrc='vim ~/.bashrc'
 alias cls='clear'
 
+vimlg() {
+	vim "$1" -c 'setfiletype log'
+}
+
 alias home='cd ~'
 alias cd..='cd ..'
 alias ..='cd ..'
@@ -47,3 +51,4 @@ alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
 
 # Search files in the current folder
 alias f="find . | grep "
+
