@@ -1,6 +1,3 @@
-# Highligh active tab
-setw -g window-status-current-style fg=black,bg=white
-
 #urxvt tab like window switching (-n: no prior escape seq)
 bind -n S-down new-window -c "#{pane_current_path}"
 bind -n S-left prev
@@ -26,7 +23,8 @@ set -g terminal-overrides '*-terminal:smcup@:rmcup@'
 # Tab naming
 set-option -g status-interval 3
 set-option -g automatic-rename on
-set-option -g automatic-rename-format '#{b:pane_current_path}'
+run-shell 'if [ ! $TMUX_PANE_NAME_CUTOFF ]; then tmux set-environment -g TMUX_PANE_NAME_CUTOFF 10; fi'
+set-option -g automatic-rename-format '#{?#{m:*/*,#{=-$TMUX_PANE_NAME_CUTOFF:pane_current_path}},#{b:pane_current_path},..#{=-$TMUX_PANE_NAME_CUTOFF:pane_current_path}}'
 
 # Truecolor
 # set -g default-terminal "xterm"
@@ -42,3 +40,10 @@ bind-key P command-prompt -p 'save history to filename:' -I '~/tmux.history' 'ca
 
 # Synchronize panes
 bind-key e setw synchronize-panes
+
+# Reload config
+bind-key r run-shell 'tmux source-file ~/.tmux.conf' \; display-message '~/.tmux.conf reloaded'
+
+# Source tmux status line
+source-file $TMUX_BASHMAGICDIR/tmux.status.tmux
+
