@@ -44,6 +44,11 @@ bind-key e setw synchronize-panes
 # Reload config
 bind-key r run-shell 'tmux source-file ~/.tmux.conf' \; display-message '~/.tmux.conf reloaded'
 
+# Use xterm keys in tmux
+set-option -gw xterm-keys on
+bind-key -n C-Left send-keys C-Left
+bind-key -n C-Right send-keys C-Right
+
 # Source tmux status line
 source-file $TMUX_BASHMAGICDIR/tmux.status.tmux
 

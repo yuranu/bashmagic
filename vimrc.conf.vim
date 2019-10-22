@@ -31,6 +31,7 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 
 set termguicolors
+set term=xterm-256color
 
 
 if !exists("g:ycm_server_python_interpreter")
