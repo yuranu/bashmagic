@@ -49,6 +49,9 @@ set-option -gw xterm-keys on
 bind-key -n C-Left send-keys C-Left
 bind-key -n C-Right send-keys C-Right
 
+# Clear history shortcut
+bind-key -n C-l send-keys C-l \; send-keys -R \; clear-history
+
 # Source tmux status line
 source-file $TMUX_BASHMAGICDIR/tmux.status.tmux
 
