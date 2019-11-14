@@ -36,7 +36,9 @@ ssh() {
 	if [ is_tmux ]; then
 		tmux rename-window "$(ssh_cmd_hostname $@)"
 		command ssh "$@"
+		local __EXIT_CODE=$?
 		tmux set-window-option automatic-rename "on" 1>/dev/null
+		return $__EXIT_CODE
 	else
 		command ssh "$@"
 	fi
@@ -46,7 +48,9 @@ ipython() {
 	if [ is_tmux ]; then
 		tmux rename-window iPython
 		command ipython "$@"
+		local __EXIT_CODE=$?
 		tmux set-window-option automatic-rename "on" 1>/dev/null
+		return $__EXIT_CODE
 	else
 		command ipython "$@"
 	fi
@@ -56,7 +60,9 @@ notes() {
 	if [ is_tmux ]; then
 		tmux rename-window NOTES
 		edit $NOTES_FILE
+		local __EXIT_CODE=$?
 		tmux set-window-option automatic-rename "on" 1>/dev/null
+		return $__EXIT_CODE
 	else
 		edit $NOTES_FILE
 	fi

@@ -11,12 +11,14 @@ vimlg() {
 	vim -R -M "$1" -c 'setfiletype log'
 }
 
-alias home='cd ~'
 alias cd..='cd ..'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias .......='cd ../../../../../..'
+alias ........='cd ../../../../../../..'
 
 # Alias's for multiple directory listing commands
 alias la='ls -Alh' # show hidden files
