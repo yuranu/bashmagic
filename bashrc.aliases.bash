@@ -11,6 +11,9 @@ vimlg() {
 	vim -R -M "$1" -c 'setfiletype log'
 }
 
+# Fuzzy find history - refresh it first
+alias __fzf_history__='history -r; __fzf_history__'
+
 alias cd..='cd ..'
 alias ..='cd ..'
 alias ...='cd ../..'

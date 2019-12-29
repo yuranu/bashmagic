@@ -21,4 +21,5 @@ make_PS1() {
 	PS1+="\[${COL_NOCOLOR}\] "
 }
 
-PROMPT_COMMAND=make_PS1
+export PROMPT_COMMAND="make_PS1; $PROMPT_COMMAND"
+
