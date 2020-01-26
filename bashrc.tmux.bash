@@ -7,6 +7,35 @@ is_tmux() {
 	return 0
 }
 
+## Split tmux pane into horizontal windows, in each open ssh connection to one of given nodes
+## @param $@ list of nodes
+multi-ssh() {
+	if [ "$#" -lt 2 ]; then
+		>&2 echo "Error: At least 2 nodes are required."
+		return 1
+	fi
+	
+	local first=$1
+	shift
+	
+	for var in "$@"; do
+		tmux split-window -v ssh $var
+	done
+	
+	tmux select-layout even-vertical
+	tmux setw synchronize-panes
+
+	# Clear screen
+
+	tmux send-keys C-l
+	tmux send-keys -R
+	tmux clear-history
+
+	ssh $first
+	
+	return 0
+}
+
 ssh_cmd_hostname() {
 	local SSH_FLAGS=46AaCfGgKkMNnqsTtVvXxYy
 	local DEST_HOSTNAME='ssh'
