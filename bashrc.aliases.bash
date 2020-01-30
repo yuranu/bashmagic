@@ -12,7 +12,7 @@ vimlg() {
 }
 
 # Fuzzy find history - refresh it first
-alias __fzf_history__='history -r; __fzf_history__'
+#alias __fzf_history__='history -r && __fzf_history__'
 
 alias cd..='cd ..'
 alias ..='cd ..'
@@ -59,4 +59,4 @@ alias f="find . | grep "
 
 alias cpuusage="top -bn1 | grep 'Cpu(s)' | sed 's/.*, *\([0-9.]*\)%* id.*/\1/' | awk '{print 100 - \$1\"%\"}'"
 
-alias vless=/usr/share/vim/vim81/macros/less.sh
+alias vless=/usr/share/vim/vim82/macros/less.sh
