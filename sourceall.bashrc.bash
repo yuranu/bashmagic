@@ -1,4 +1,5 @@
 export BASHMAGICDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+export PROMPT_COMMAND=
 
 update-bashmagic() {
     local PREV_DIR=$(pwd)
