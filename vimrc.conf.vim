@@ -51,7 +51,7 @@ map <S-F> :BLine<CR>
 " Colorschemes
 syntax on
 colorscheme onedark
-let g:airline_theme='badcat'
+let g:airline_theme='badwolf'
 
 :hi CursorLine   cterm=NONE ctermbg=17 guibg=#00002f
 :nnoremap <Leader>c :set cursorline!<CR>
