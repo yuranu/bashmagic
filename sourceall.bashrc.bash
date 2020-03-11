@@ -9,5 +9,7 @@ update-bashmagic() {
 }
 
 for filename in $BASHMAGICDIR/bashrc.*.bash; do
-    source ${filename}
+	if [[ -z "${BASHMAGIC_EXCLUDE}" || ! ${filename} =~ ${BASHMAGIC_EXCLUDE} ]] ; then
+		source "${filename}"
+	fi
 done
