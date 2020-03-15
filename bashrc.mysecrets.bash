@@ -8,9 +8,7 @@ mysecretsfile() {
 
 mysecrets() {
     if [ -f ~/.mysecrets ] && [ -f "$(mysecretsfile)" ]; then
-        local pass
-        read -sp $'Password:\n' pass
-        { echo "${pass}" | gpg -d --batch --yes --passphrase-fd 0 "$(mysecretsfile)" 2> /dev/null; } || return $?
+        gpg -d "$(mysecretsfile)" 2> /dev/null || return $?
         echo;
     else
         echo "Invalid config (~/.mysecrets)"
