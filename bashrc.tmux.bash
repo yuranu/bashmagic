@@ -1,5 +1,17 @@
 #!/bin/bash
 
+tmux-rename-based-on-cwd() {
+	if [ "${BASHMAGIC_TMUX_RENAME}" == "on" ] && [ is_tmux ]; then
+		local bname=$(basename "$(pwd)")
+		local rname=${bname:0:10}
+
+		if [ "${bname}" != "${rname}" ]; then
+			rname="${rname:0:9}~"
+		fi
+		tmux rename-window "${rname}"
+	fi
+}
+
 is_tmux() {
 	if [ "ps -e | grep $(ps -o ppid= $$) | grep tmux" ]; then
 		return 1
@@ -96,3 +108,5 @@ notes() {
 		edit $NOTES_FILE
 	fi
 }
+
+export PROMPT_COMMAND="tmux-rename-based-on-cwd;${PROMPT_COMMAND}"
