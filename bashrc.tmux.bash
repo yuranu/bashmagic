@@ -1,7 +1,7 @@
 #!/bin/bash
 
 tmux-rename-based-on-cwd() {
-	if [ "${BASHMAGIC_TMUX_RENAME}" == "on" ] && [ is_tmux ]; then
+	if [ "${BASHMAGIC_TMUX_RENAME}" == "on" ] && is_tmux ; then
 		local bname=$(basename "$(pwd)")
 		local rname=${bname:0:10}
 
@@ -13,10 +13,10 @@ tmux-rename-based-on-cwd() {
 }
 
 is_tmux() {
-	if [ "ps -e | grep $(ps -o ppid= $$) | grep tmux" ]; then
-		return 1
+	if ps -e | grep $(ps -o ppid= $$) | grep tmux >/dev/null 2>/dev/null; then
+		return 0
 	fi
-	return 0
+	return 1
 }
 
 ## Split tmux pane into horizontal windows, in each open ssh connection to one of given nodes
@@ -74,7 +74,7 @@ ssh_cmd_hostname() {
 }
 
 ssh() {
-	if [ is_tmux ]; then
+	if is_tmux; then
 		tmux rename-window "$(ssh_cmd_hostname $@)"
 		command ssh "$@"
 		local __EXIT_CODE=$?
@@ -86,7 +86,7 @@ ssh() {
 }
 
 ipython() {
-	if [ is_tmux ]; then
+	if is_tmux; then
 		tmux rename-window iPython
 		command ipython "$@"
 		local __EXIT_CODE=$?
@@ -98,7 +98,7 @@ ipython() {
 }
 
 notes() {
-	if [ is_tmux ]; then
+	if is_tmux; then
 		tmux rename-window NOTES
 		edit $NOTES_FILE
 		local __EXIT_CODE=$?
