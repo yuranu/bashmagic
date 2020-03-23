@@ -13,7 +13,10 @@ tmux-rename-based-on-cwd() {
 				fi
 			done
 			if [ ! -z "${rname}" ]; then
-				tmux rename-window "${rname}"
+				tmux rename-window -t "$(tmux-window-id)" "${rname}"
+				if [ "$(tmux-window-id)" != $(tmux display -p '#I') ] ; then
+					(tmux-animate-window-name &)
+				fi
 				return 0
 			fi
 		fi
@@ -23,9 +26,45 @@ tmux-rename-based-on-cwd() {
 		if [ "${bname}" != "${rname}" ]; then
 			rname="${rname:0:9}~"
 		fi
-		tmux rename-window "${rname}"
+		tmux rename-window -t "$(tmux-window-id)" "${rname}"
+		if [ "$(tmux-window-id)" != $(tmux display -p '#I') ] ; then
+			(tmux-animate-window-name &)
+		fi
 	fi
 	return 0
+}
+
+tmux-window-id() {
+	tmux display -pt "${TMUX_PANE}" '#I'
+}
+
+tmux-window-name() {
+	tmux display -pt "${TMUX_PANE}" '#W'
+}
+
+tmux-animate-window-name() {
+	local len=$1
+	if [ -z "$len" ] ; then
+		len=10
+	fi
+	local end=$(($SECONDS+$len))
+	local i sp n
+	sp='#*0 '
+	n=${#sp}
+	local ininame=$(tmux-window-name)
+	local name=$ininame
+	local rename
+	local ch
+	while [ $SECONDS -lt $end ]; do
+		ch="${sp:i++%n:1}"
+		rename="${ch}${name:1:-1}${ch}"
+		if [ "$rename" != "$(tmux-window-name)" ] ; then
+			name="$(tmux-window-name)"
+		fi
+		tmux rename-window -t "$(tmux-window-id)" "${rename}"
+		sleep 0.2
+    done
+	tmux rename-window -t "$(tmux-window-id)" "${ininame}"
 }
 
 is_tmux() {
