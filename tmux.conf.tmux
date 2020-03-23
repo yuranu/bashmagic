@@ -21,10 +21,8 @@ set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 set -g terminal-overrides '*-terminal:smcup@:rmcup@'
 
 # Tab naming
-# set-option -g status-interval 3
-# set-option -g automatic-rename on
-# run-shell 'if [ ! $TMUX_PANE_NAME_CUTOFF ]; then tmux set-environment -g TMUX_PANE_NAME_CUTOFF 10; fi'
-# set-option -g automatic-rename-format '#{?#{m:*/*,#{=-$TMUX_PANE_NAME_CUTOFF:pane_current_path}},#{b:pane_current_path},..#{=-$TMUX_PANE_NAME_CUTOFF:pane_current_path}}'
+set-option -g status-interval 3
+set-option -g automatic-rename on
 
 # Truecolor
 # set -g default-terminal "xterm"
