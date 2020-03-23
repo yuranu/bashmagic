@@ -2,6 +2,21 @@
 
 tmux-rename-based-on-cwd() {
 	if [ "${BASHMAGIC_TMUX_RENAME}" == "on" ] && is_tmux ; then
+		if [ ! -z "${BASHMAGIC_TMUX_RENAME_HOOK}" ] ; then
+			local hook_arr
+			local hook
+			local rname
+			IFS=':' read -r -a hook_arr <<< "${BASHMAGIC_TMUX_RENAME_HOOK}"
+			for hook in "${hook_arr[@]}" ; do
+				if [ ! -z "${hook}" ] ; then
+					rname="${rname}$(${hook})"
+				fi
+			done
+			if [ ! -z "${rname}" ]; then
+				tmux rename-window "${rname}"
+				return 0
+			fi
+		fi
 		local bname=$(basename "$(pwd)")
 		local rname=${bname:0:10}
 
@@ -10,6 +25,7 @@ tmux-rename-based-on-cwd() {
 		fi
 		tmux rename-window "${rname}"
 	fi
+	return 0
 }
 
 is_tmux() {
