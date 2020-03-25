@@ -3,6 +3,9 @@
 tmux-rename-based-on-cwd() {
 	if [ "${BASHMAGIC_TMUX_RENAME}" == "on" ] && is_tmux ; then
 		if [ "${__LAST_PROMPT_PWD}" == "${PWD}" ]; then
+			if [ "$(tmux-window-id)" != $(tmux display -p '#I') ] ; then
+				(tmux-animate-window-name &)
+			fi
 			return 0
 		else
 			export __LAST_PROMPT_PWD=${PWD}
@@ -56,6 +59,7 @@ tmux-animate-window-name() {
 	local i sp n
 	sp='#*0 '
 	n=${#sp}
+	local autorename=$(tmux show-window-options | grep 'automatic-rename on')
 	local ininame=$(tmux-window-name)
 	local name=$ininame
 	local rename
@@ -69,7 +73,10 @@ tmux-animate-window-name() {
 		tmux rename-window -t "$(tmux-window-id)" "${rename}"
 		sleep 0.2
     done
-	tmux set-window-option automatic-rename "on"
+	tmux rename-window -t "$(tmux-window-id)" "${ininame}"
+	if [ ! -z "${autorename}" ] ; then
+		tmux set-window-option -t "$(tmux-window-id)" automatic-rename "on"
+	fi
 }
 
 is_tmux() {
