@@ -47,16 +47,12 @@ alias 666='chmod -R 666'
 alias 755='chmod -R 755'
 alias 777='chmod -R 777'
 
-# Search command line history
-alias h="history | grep "
-
 # Search running processes
 alias p="ps aux | grep "
 alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
 
-# Search files in the current folder
-alias f="find . | grep "
-
 alias cpuusage="top -bn1 | grep 'Cpu(s)' | sed 's/.*, *\([0-9.]*\)%* id.*/\1/' | awk '{print 100 - \$1\"%\"}'"
 
 alias vless=/usr/share/vim/vim82/macros/less.sh
+
+alias rsync='rsync -a --info=progress2'
