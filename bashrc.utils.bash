@@ -71,7 +71,7 @@ whatismyip() {
     curl ifconfig.me
 }
 
-distribution() {
+get-distro() {
     local dtype
     # Assume unknown
     dtype="unknown"
@@ -88,11 +88,11 @@ distribution() {
     elif [ -r /etc/init.d/functions.sh ]; then
         source /etc/init.d/functions.sh
         [ zz$(type -t ebegin 2>/dev/null) == "zzfunction" ] && dtype="gentoo"
-    elif [ -s /etc/mandriva-release ]; then
+    elif [ -e /etc/mandriva-release ]; then
         dtype="mandriva"
-    elif [ -s /etc/slackware-version ]; then
+    elif [ -e /etc/slackware-version ]; then
         dtype="slackware"
-    elif [ -s /etc/arcg-release ]; then
+    elif [ -e /etc/arch-release ]; then
         dtype="arch"
     fi
     echo $dtype
