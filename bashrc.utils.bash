@@ -134,3 +134,19 @@ cdtmp() {
 
 alias speed-test='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -'
 
+add-to-set () {
+    local setref=$1
+    local newelm=$2
+    local placetoadd=$3
+    if ! echo "${!setref}" | /bin/grep -Eq "(^|:)${newelm}($|:)" ; then
+        if [ -z "${!setref}" ] ; then
+            read -d'' -r ${setref} <<< "${newelm}"
+            return
+        fi
+        if [ "${placetoadd}" = "after" ] ; then
+            read -d'' -r ${setref} <<< "${!setref}:${newelm}"
+        else
+            read -d'' -r ${setref} <<< "${newelm}:${!setref}"
+        fi
+    fi
+}
