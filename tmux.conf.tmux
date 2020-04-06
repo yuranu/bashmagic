@@ -33,7 +33,7 @@ set-option -g mode-keys vi
 # Copy mode bindings
 bind-key -T copy-mode-vi 'y' send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c" \; display-message "copied to system clipboard"
 bind-key -T copy-mode-vi MouseUp2Pane send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c" \; display-message "copied to system clipboard"
-bind-key -T copy-mode-vi MouseUp1Pane send -X clear-selection
+bind-key -T copy-mode-vi MouseUp3Pane send -X clear-selection
 unbind-key -T copy-mode-vi MouseDragEnd1Pane
 
 # Save tmux buffer
