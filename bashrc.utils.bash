@@ -150,3 +150,63 @@ add-to-set () {
         fi
     fi
 }
+
+__ping_loop() {
+	local server="${1}"
+	while : ; do
+		ping -c 1 "${server}"
+		local ret=$?
+		if [ "${ret}" != "1" ]; then
+			return ${ret}
+		fi
+	done
+}
+
+wait-for-ping() {
+	local server="${1}"
+	local ping_cancelled=false
+
+	if [ -z "${server}" ]; then
+		>2 echo "Host not specified"
+		return 1
+	fi
+
+	__ping_loop "${server}" &
+	trap "kill -- $!; ping_cancelled=true" SIGINT
+	wait $!
+	local ret=$?
+	trap - SIGINT
+	return $?
+}
+
+string-replace() {
+    local str="$1"
+    local rep="$2"
+    local off="$3"
+    echo "${str:0:${off}}${rep}${str:$((${off}+${#rep}))}"
+}
+
+string-ring-replace() {
+    local str="$1"
+    local rep="$2"
+
+    if [ "${#str}" -lt "${#rep}" ]; then
+        local dif="$(("${#rep}" - "${#str}"))"
+        IFS= str="${str}$(printf '%*s' ${dif})"
+    fi
+
+    local off=$(("$3" % "${#str}"))
+
+    local len_e=$((${#str} - ${off}))
+    if [ "${len_e}" -lt "0" ] ; then
+        len_e="0"
+    fi
+    if [ "${len_e}" -gt "${#rep}" ] ; then
+        len_e="${#rep}"
+    fi
+
+    IFS= str=$(string-replace "${str}" "${rep:${len_e}}" "0")
+    IFS= str=$(string-replace "${str}" "${rep:0:${len_e}}" "${off}")
+
+    echo -n "${str}"
+}

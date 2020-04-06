@@ -65,11 +65,11 @@ tmux-animate-window-name() {
 	local rename
 	local ch
 	while [ $SECONDS -lt $end ]; do
-		ch="${sp:i++%n:1}"
-		rename="${ch}${name:1:-1}${ch}"
 		if [ "$rename" != "$(tmux-window-name)" ] ; then
 			name="$(tmux-window-name)"
 		fi
+		i="$(($i+1))"
+		rename=$(string-ring-replace "$name" " DONE " "$i")
 		tmux rename-window -t "$(tmux-window-id)" "${rename}"
 		sleep 0.2
     done
@@ -78,6 +78,35 @@ tmux-animate-window-name() {
 		tmux set-window-option -t "$(tmux-window-id)" automatic-rename "on"
 	fi
 }
+
+# tmux-animate-window-name() {
+# 	local len=$1
+# 	if [ -z "$len" ] ; then
+# 		len=10
+# 	fi
+# 	local end=$(($SECONDS+$len))
+# 	local i sp n
+# 	sp='#*0 '
+# 	n=${#sp}
+# 	local autorename=$(tmux show-window-options | grep 'automatic-rename on')
+# 	local ininame=$(tmux-window-name)
+# 	local name=$ininame
+# 	local rename
+# 	local ch
+# 	while [ $SECONDS -lt $end ]; do
+# 		ch="${sp:i++%n:1}"
+# 		rename="${ch}${name:1:-1}${ch}"
+# 		if [ "$rename" != "$(tmux-window-name)" ] ; then
+# 			name="$(tmux-window-name)"
+# 		fi
+# 		tmux rename-window -t "$(tmux-window-id)" "${rename}"
+# 		sleep 0.2
+#     done
+# 	tmux rename-window -t "$(tmux-window-id)" "${ininame}"
+# 	if [ ! -z "${autorename}" ] ; then
+# 		tmux set-window-option -t "$(tmux-window-id)" automatic-rename "on"
+# 	fi
+# }
 
 is_tmux() {
 	if ps -e | grep $(ps -o ppid= $$) | grep tmux >/dev/null 2>/dev/null; then

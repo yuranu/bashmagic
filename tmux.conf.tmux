@@ -2,8 +2,8 @@
 bind -n S-down new-window -c "#{pane_current_path}"
 bind -n S-left prev
 bind -n S-right next
-bind -n C-S-left swap-window -t -1
-bind -n C-S-right swap-window -t +1
+bind -n C-S-left swap-window -d -t -1
+bind -n C-S-right swap-window -d -t +1
 
 #Split key bindings
 bind-key h split-window -h
@@ -28,10 +28,13 @@ set-option -g automatic-rename on
 # set -g default-terminal "xterm"
 set-option -sa terminal-overrides ",xterm*:Tc"
 
+set-option -g mode-keys vi
+
 # Copy mode bindings
-bind-key -T copy-mode 'v' send-keys -X begin-selection
-bind-key -T copy-mode 'r' send-keys -X rectangle-toggle
-bind-key -T copy-mode 'y' send-keys -X copy-pipe-and-cancel 'xclip -i -f -selection primary | xclip -i -selection clipboard'
+bind-key -T copy-mode-vi 'y' send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c" \; display-message "copied to system clipboard"
+bind-key -T copy-mode-vi MouseUp2Pane send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c" \; display-message "copied to system clipboard"
+bind-key -T copy-mode-vi MouseUp1Pane send -X clear-selection
+unbind-key -T copy-mode-vi MouseDragEnd1Pane
 
 # Save tmux buffer
 bind-key P command-prompt -p 'save history to filename:' -I '~/tmux.history' 'capture-pane -S -32768 ; save-buffer %1 ; delete-buffer'
