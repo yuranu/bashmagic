@@ -16,6 +16,10 @@ set -g history-limit 30000
 bind -T root WheelUpPane   if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; copy-mode -e; send-keys -M"
 bind -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; send-keys -M"
 
+# Multi window view
+set -g window-style 'fg=colour8'
+set -g window-active-style 'bg=terminal fg=terminal'
+
 # Scrollbar
 set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 set -g terminal-overrides '*-terminal:smcup@:rmcup@'
