@@ -6,6 +6,11 @@ make_PS1() {
 	fi
     # Username
     PS1+="\[${COL_YELLOW}\]\u"
+	# SSH hostname
+	if [ ! -z "${SSH_CLIENT}" ]; then
+		PS1+="\[${COL_DARKGRAY}\]@"
+		PS1+="\[${COL_LIGHTRED}\]\h"
+	fi
     # CWD
     PS1+="\[${COL_DARKGRAY}\]:\[${COL_CYAN}\]\w"
     # git branch
