@@ -119,6 +119,7 @@ extract() {
             *.zip) unzip "$archive" ;;
             *.Z) uncompress "$archive" ;;
             *.7z) 7z x "$archive" ;;
+            *.rpm) rpm2cpio "$archive" | bsdtar -xf - ;;
             *) echo "don't know how to extract '$archive'..." ;;
             esac
         else

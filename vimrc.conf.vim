@@ -63,5 +63,7 @@ set mouse=a
 set clipboard=unnamedplus
 set cursorline
 
+set hlsearch
+
 map <C-n> :NERDTreeToggle<CR>
 
