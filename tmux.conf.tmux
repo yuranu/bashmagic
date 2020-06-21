@@ -1,5 +1,5 @@
 #urxvt tab like window switching (-n: no prior escape seq)
-bind -n S-down new-window -c "#{pane_current_path}"
+bind-key down new-window -c "#{pane_current_path}"
 bind -n S-left prev
 bind -n S-right next
 bind -n C-S-left swap-window -d -t -1
