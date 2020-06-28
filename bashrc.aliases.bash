@@ -56,3 +56,8 @@ alias cpuusage="top -bn1 | grep 'Cpu(s)' | sed 's/.*, *\([0-9.]*\)%* id.*/\1/' |
 alias vless=/usr/share/vim/vim82/macros/less.sh
 
 alias rsync='rsync -a --info=progress2'
+
+
+if command -v foo >/dev/null 2>&1 ; then
+	export MANPAGER="bash -c 'col -b | bat -l man -p'"
+fi
