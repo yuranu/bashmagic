@@ -60,4 +60,6 @@ alias rsync='rsync -a --info=progress2'
 
 if command -v bat >/dev/null 2>&1 ; then
 	export MANPAGER="bash -c 'col -b | bat -l man -p'"
+	alias linux-doc-fzf="find /usr/share/doc/linux/ -name '*.rst' -o -name '*.txt' | xargs -I {} bash -c \"cat -b {} | grep -P '\w' | sed 's|^|{}: |'\" | fzf | sed -E 's/^([^:]*):\s*([0-9]*).*/\1 --pager \"less -R +\2\"/' | xargs bat -l rst"
 fi
+
