@@ -63,3 +63,10 @@ if command -v bat >/dev/null 2>&1 ; then
 	alias linux-doc-fzf="find /usr/share/doc/linux/ -name '*.rst' -o -name '*.txt' | xargs -I {} bash -c \"cat -b {} | grep -P '\w' | sed 's|^|{}: |'\" | fzf | sed -E 's/^([^:]*):\s*([0-9]*).*/\1 --pager \"less -R +\2\"/' | xargs bat -l rst"
 fi
 
+function csv-read() {
+	if [ -z "$1" ]; then
+		echo "Usage: csv-read CSV_FILE_NAME"
+		return 1
+	fi
+	column '-o | ' -s, -t < "$1" | bat -l csv --file-name "$1"
+}

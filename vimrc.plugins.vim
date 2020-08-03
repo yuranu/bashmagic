@@ -14,4 +14,5 @@ Plug 'neoclide/coc.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sotte/presenting.vim'
 Plug 'preservim/nerdtree'
+Plug 'chrisbra/csv.vim'
 

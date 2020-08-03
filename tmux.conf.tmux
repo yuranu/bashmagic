@@ -8,6 +8,8 @@ bind -n C-S-right swap-window -d -t +1
 #Split key bindings
 bind-key h split-window -h
 bind-key v split-window -v
+bind-key | split-window -h
+bind-key _ split-window -v
 
 # Mosue scrolling
 set -g mouse on
