@@ -177,7 +177,14 @@ wait-for-ping() {
 	wait $!
 	local ret=$?
 	trap - SIGINT
-	return $?
+	return $ret
+}
+
+notify-on-ping() {
+	for srv in "$@"; do
+		wait-for-ping "$srv" || return $?
+	done
+	zenity --info --text="Have ping to '$*'"
 }
 
 string-replace() {
