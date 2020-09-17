@@ -20,7 +20,7 @@ bind -T root WheelUpPane   if-shell -F -t = "#{alternate_on}" "send-keys -M" "se
 bind -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; send-keys -M"
 
 # Multi window view
-set -g window-style 'fg=colour8'
+set -g window-style 'fg=colour7'
 set -g window-active-style 'bg=terminal fg=terminal'
 
 # Scrollbar
