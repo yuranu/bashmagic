@@ -194,6 +194,23 @@ string-replace() {
     echo "${str:0:${off}}${rep}${str:$((${off}+${#rep}))}"
 }
 
+
+function cheatsheet() {
+	if [ -z "$BASHMAGIC_CHEATSHEET_FILE" ] ; then
+		>&2 echo BASHMAGIC_CHEATSHEET_FILE not set
+		return 1
+	fi
+	if [ "$1" == "-i" ]; then
+		edit "$BASHMAGIC_CHEATSHEET_FILE"
+		return $?
+	fi
+	if type bat 2> /dev/null; then
+		bat --style header "$BASHMAGIC_CHEATSHEET_FILE"
+	else
+		less "$BASHMAGIC_CHEATSHEET_FILE"
+	fi
+}
+
 string-ring-replace() {
     local str="$1"
     local rep="$2"
