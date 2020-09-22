@@ -211,6 +211,10 @@ function cheatsheet() {
 	fi
 }
 
+present() {
+	vim -M "$@" -c PresentingStart -c Goyo
+}
+
 string-ring-replace() {
     local str="$1"
     local rep="$2"
