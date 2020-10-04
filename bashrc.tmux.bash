@@ -170,14 +170,17 @@ ssh_cmd_hostname() {
 }
 
 ssh() {
+	if [ -z $SSH ] ; then
+		local SSH=ssh
+	fi
 	if is_tmux; then
 		tmux rename-window "(ssh)$(ssh_cmd_hostname $@)"
-		command ssh "$@"
+		command $SSH "$@"
 		local __EXIT_CODE=$?
 		tmux set-window-option automatic-rename "on" 1>/dev/null
 		return $__EXIT_CODE
 	else
-		command ssh "$@"
+		command $SSH "$@"
 	fi
 }
 
