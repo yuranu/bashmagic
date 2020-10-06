@@ -239,3 +239,14 @@ string-ring-replace() {
 
     echo -n "${str}"
 }
+
+cowsay-img() {
+    local img="$1"
+    if [ -z "$img" ]; then
+        img="cowsay"
+    fi
+    local txt="$(fortune|cowsay)"
+    local geometry=$(awk "BEGIN {printf \"%dx%d\", $(echo "$blah" | wc -L) * 7.2 + 80, $(echo "$blah" | wc -l)*16 + 80}")
+    echo "$txt" | convert -page "$geometry" -font "Source-Code-Pro-Medium" text:- cowsay.jpg
+}
+
