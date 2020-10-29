@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export LESS='--mouse --wheel-lines=3'
+
 alias la='ls -lah'
 alias ll='ls -Fls'
 

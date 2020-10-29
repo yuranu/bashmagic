@@ -16,6 +16,9 @@ bind-key _ split-window -v
 set -g mouse on
 set -g history-limit 30000
 
+# Toggle mouse
+bind-key m if-shell "tmux show -g mouse | grep off" "set -g mouse on ; display-message 'mouse on'" "set -g mouse off ; display-message 'mouse off'"
+
 bind -T root WheelUpPane   if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; copy-mode -e; send-keys -M"
 bind -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; send-keys -M"
 
