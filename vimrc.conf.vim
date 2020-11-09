@@ -63,7 +63,8 @@ set mouse=a
 set clipboard=unnamedplus
 set cursorline
 
-set cc=80
+highlight ColorColumn ctermbg=black ctermfg=white guibg=#00002f guifg=grey
+set colorcolumn=80
 
 set hlsearch
 
