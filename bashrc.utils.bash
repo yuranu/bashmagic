@@ -108,8 +108,9 @@ extract() {
     for archive in $*; do
         if [ -f $archive ]; then
             case $archive in
-            *.tar.bz2) tar xvjf "$archive" ;;
-            *.tar.gz) tar xvzf "$archive" ;;
+            *.tar.bz2) tar -xvjf "$archive" ;;
+            *.tar.gz) tar -xvzf "$archive" ;;
+			*.tar.xz) tar -xvzf "$archive" ;;
             *.bz2) bunzip2 "$archive" ;;
             *.rar) rar x "$archive" ;;
             *.gz) gunzip "$archive" ;;
@@ -120,6 +121,7 @@ extract() {
             *.Z) uncompress "$archive" ;;
             *.7z) 7z x "$archive" ;;
             *.rpm) rpm2cpio "$archive" | bsdtar -xf - ;;
+			*.xz) xz --decompress "$archive" ;;
             *) echo "don't know how to extract '$archive'..." ;;
             esac
         else
@@ -163,6 +165,34 @@ __ping_loop() {
 	done
 }
 
+wait-for-conn() {
+	# Flags
+	local noping=no
+	while [[ $# -gt 0 ]]
+		do
+		key="$1"
+		case $key in
+		--noping|-np)
+			noping=yes
+			shift
+			continue
+			;;
+		esac
+		break;
+	done
+	# Actual
+	for srv in "$@"; do
+		if [ $noping != yes ]; then wait-for-ping; fi
+		while [[ -z $(ssh $srv "ls -ld /tmp") ]]; do sleep 2; done;
+	done
+}
+
+notify-on-conn() {
+	wait-for-conn "$@"
+	zenity --info --text="Have connection to '$*'"
+}
+
+
 wait-for-ping() {
 	local server="${1}"
 	local ping_cancelled=false
@@ -202,6 +232,11 @@ function cheatsheet() {
 	fi
 	if [ "$1" == "-i" ]; then
 		edit "$BASHMAGIC_CHEATSHEET_FILE"
+		return $?
+	fi
+	if [ "$1" == "-html" ]; then
+		local tmp=$(mktemp).html
+		pandoc -o "$tmp" --template="${HOME}/.pandoc/GitHub.html5" -s "$BASHMAGIC_CHEATSHEET_FILE" && xdg-open "$tmp"
 		return $?
 	fi
 	if type bat 2> /dev/null; then

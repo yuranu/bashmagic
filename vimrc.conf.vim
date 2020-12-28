@@ -69,4 +69,4 @@ set colorcolumn=80
 set hlsearch
 
 map <C-n> :NERDTreeToggle<CR>
-
+nnoremap <Leader>f :tabnew\|0r!grep  #<Left><Left>
