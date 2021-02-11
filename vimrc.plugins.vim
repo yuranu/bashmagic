@@ -16,4 +16,5 @@ Plug 'sotte/presenting.vim'
 Plug 'preservim/nerdtree'
 Plug 'chrisbra/csv.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'powerman/vim-plugin-AnsiEsc'
 

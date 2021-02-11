@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export LESS='--mouse --wheel-lines=3'
+export LESS='--mouse --wheel-lines=3 -# 4'
 
 alias la='ls -lah'
 alias ll='ls -Fls'
