@@ -1,5 +1,49 @@
 #!/bin/bash
 
+tmux-open-layout() {
+	case $1 in
+		2x3)
+			tmux new-window
+			tmux split-window -h
+			tmux split-window -h
+			tmux select-layout even-horizontal
+			tmux split-window -v
+			tmux select-pane -t 1
+			tmux split-window -v
+			tmux select-pane -t 0
+			tmux split-window -v
+			tmux select-pane -t 0
+		;;
+		2x2)
+			tmux new-window
+			tmux split-window -h
+			tmux split-window -v
+			tmux select-pane -t 0
+			tmux split-window -v
+			tmux select-pane -t 0
+		;;
+		3x3)
+			tmux new-window
+			tmux split-window -h
+			tmux split-window -h
+			tmux split-window -v
+			tmux split-window -v
+			tmux select-pane -t 1
+			tmux split-window -v
+			tmux split-window -v
+			tmux select-pane -t 0
+			tmux split-window -v
+			tmux split-window -v
+			tmux select-pane -t 0
+			tmux select-layout tiled
+		;;
+		*)
+			>&2 echo "Invalid layout <$1>"
+	esac
+}
+
+complete -W "2x3 2x2 3x3" tmux-open-layout
+
 tmux-rename-based-on-cwd() {
 	if [ "${BASHMAGIC_TMUX_RENAME}" == "on" ] && is_tmux ; then
 		if [ "${__LAST_PROMPT_PWD}" == "${PWD}" ]; then

@@ -64,7 +64,7 @@ set clipboard=unnamedplus
 set cursorline
 
 highlight ColorColumn ctermbg=black ctermfg=white guibg=#00002f guifg=grey
-set colorcolumn=80
+set colorcolumn=80,120
 
 set hlsearch
 
