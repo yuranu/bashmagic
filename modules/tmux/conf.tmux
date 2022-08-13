@@ -1,5 +1,7 @@
+# Of course VI!
+set-option -g mode-keys vi
+
 #urxvt tab like window switching (-n: no prior escape seq)
-#bind-key down new-window -c "#{pane_current_path}"
 bind-key C new-window -c "#{pane_current_path}"
 bind -n S-left prev
 bind -n S-right next
@@ -38,8 +40,6 @@ set-option -g automatic-rename on
 # set -g default-terminal "xterm"
 set-option -sa terminal-overrides ",xterm*:Tc"
 
-set-option -g mode-keys vi
-
 # Copy mode bindings
 bind-key -T copy-mode-vi 'y' send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c" \; display-message "copied to system clipboard"
 bind-key -T copy-mode-vi MouseUp2Pane send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c" \; display-message "copied to system clipboard"
@@ -63,6 +63,4 @@ bind-key -n C-Right send-keys C-Right
 # Clear history shortcut
 bind-key -n C-l send-keys C-l \; send-keys -R \; clear-history
 
-# Source tmux status line
-source-file $TMUX_BASHMAGICDIR/tmux.status.tmux
 
