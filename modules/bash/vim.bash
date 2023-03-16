@@ -1,7 +1,14 @@
 # This module contains some useful aliases for VIM - the best text editor in
 # the universe, curse you emacs
 
-bm-command-defined vim || return
+if ! bm-command-defined vim ; then
+    if ! bm-command-defined nvim ; then
+        return
+    else
+        alias vim=nvim
+    fi
+fi
+
 
 # My default editor is vim, of course
 alias edit='vim'
