@@ -1,7 +1,7 @@
 # This module contains some useful aliases and non essential scripts.
 # Make sure it is loaded last, as it may refer any module before it.
 
-LESS='--mouse --wheel-lines=3 --shift=4'
+export LESS='--mouse --wheel-lines=3 --shift=4 -R'
 
 alias cls='clear'
 

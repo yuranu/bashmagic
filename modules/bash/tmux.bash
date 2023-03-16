@@ -185,7 +185,19 @@ function bm-tmux-open-layout() {
 	esac
 }
 
-complete -W "2x3 2x2 3x3" tmux-open-layout
+complete -W "2x3 2x2 3x3" bm-tmux-open-layout
+
+function bm-tmux-broadcast-command() {
+    tmux list-panes -s -F '#{session_name}:#{window_index}.#{pane_index} #{pane_pid}' | while read line ; do
+        local pane=`echo ${line} | cut -d' ' -f1`
+	local pid=`echo ${line} | cut -d' ' -f2`
+	local cmdline=`tr -d '\0' < /proc/${pid}/cmdline`
+        if ! pgrep -P "${pid}" 2>&1 >/dev/null && [[ "${cmdline}" == *bash* ]]; then
+            tmux send-keys -t "${pane}" C-c
+            tmux send-keys -t "${pane}" Home C-k "$*" Enter
+        fi
+    done
+}
 
 
 # TODO: decide what to do with that legacy stuff. I am not sure I want to throw

@@ -41,6 +41,7 @@ function __bm-main() {
     modules+=(vim.bash)
     modules+=(tmux.bash)
     modules+=(utils.bash)
+    modules+=(hacksntricks.bash)
 
     # This module can use any module above it, so it is wise to put it last
     modules+=(aliases.bash)

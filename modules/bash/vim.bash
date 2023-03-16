@@ -7,18 +7,39 @@ bm-command-defined vim || return
 alias edit='vim'
 alias ebrc='vim ~/.bashrc'
 
-function bm-present() {
-    vim -M "$@" -c PresentingStart -c Goyo
+function __bm-get-vim-runtime() {
+    if bm-has-cmd nvim ; then
+        echo /usr/share/nvim/runtime
+        return 0
+    fi
+
+    if bm-has-cmd vim ; then
+        vim -e -T dumb --cmd 'exe "set t_cm=\<C-M>"|echo $VIMRUNTIME|quit' | tr -d '\015'
+        return 0
+    fi
+
+    return 1
 }
 
 function __bm-vim() {
-    local vimruntime=$(vim -e -T dumb --cmd 'exe "set t_cm=\<C-M>"|echo $VIMRUNTIME|quit' | tr -d '\015')
+    local vimruntime=$(__bm-get-vim-runtime)
     [[ -z "${vimruntime}" ]] && {
         return
     }
 
     local vless="${vimruntime}/macros/less.sh"
     [[ -x "${vless}" ]] && alias vless="${vless}"
+    [[ -x "${vless}" ]] && alias vlessl="${vless} -c 'set ft=log'"
+
+    bm-has-cmd nvim && alias vim=nvim
 }
 
 __bm-vim
+
+# All new function / aliases must be after this point, as this is the point
+# where vim version is chosen
+
+function bm-present() {
+    vim -M "$@" -c PresentingStart -c Goyo
+}
+

@@ -38,8 +38,9 @@ function __bm-make-PS1() {
 # __bm-on-prompt
 # This function is invoked before returning to prompt
 function __bm-on-prompt() {
-    IFS=":"
-    for callback in ${__bm_hook_prompt}; do
+    declare -a tmparr
+    IFS=":" read -a tmparr <<< "${__bm_hook_prompt}"
+    for callback in ${tmparr[@]}; do
         ${callback}
     done
 }
@@ -47,3 +48,4 @@ function __bm-on-prompt() {
 bm-hook prompt __bm-make-PS1
 
 bm-varappend PROMPT_COMMAND ';' __bm-on-prompt
+

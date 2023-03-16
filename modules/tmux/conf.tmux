@@ -16,7 +16,7 @@ bind-key _ split-window -v
 
 # Mosue scrolling
 set -g mouse on
-set -g history-limit 30000
+set -g history-limit 131072
 
 # Toggle mouse
 bind-key m if-shell "tmux show -g mouse | grep off" "set -g mouse on ; display-message 'mouse on'" "set -g mouse off ; display-message 'mouse off'"
@@ -47,7 +47,7 @@ bind-key -T copy-mode-vi MouseUp3Pane send -X clear-selection
 unbind-key -T copy-mode-vi MouseDragEnd1Pane
 
 # Save tmux buffer
-bind-key P command-prompt -p 'save history to filename:' -I '~/tmux.history' 'capture-pane -S -32768 ; save-buffer %1 ; delete-buffer'
+bind-key S command-prompt -p 'save history to filename:' -I '~/logs/tmux.history' 'capture-pane -S - ; save-buffer %1 ; delete-buffer'
 
 # Synchronize panes
 bind-key e setw synchronize-panes
@@ -62,5 +62,4 @@ bind-key -n C-Right send-keys C-Right
 
 # Clear history shortcut
 bind-key -n C-l send-keys C-l \; send-keys -R \; clear-history
-
 

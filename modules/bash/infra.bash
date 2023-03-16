@@ -20,6 +20,14 @@ bm_col_cyan="\033[0;36m"
 bm_col_lightcyan="\033[1;36m"
 bm_col_nocolor="\033[0m"
 
+bm_user_data_home="${XDG_DATA_HOME:-$HOME/.local/share}"
+bm_user_config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+
+function bm-has-cmd() {
+    [ -z "$1" ] && return 1
+    type "$1" >/dev/null 2>&1
+}
+
 function bm-err() {
     echo "$@" 2>&1
 }
