@@ -1,5 +1,8 @@
 # This module contains some facny bells an whistles to integrate with TMUX
 
+# Hook functions to rename tmux windows
+__bm_hook_rename=""
+
 function __bm-is-tmux() {
     if ps -e | grep $(ps -o ppid= $$) | grep tmux >/dev/null 2>/dev/null; then
         return 0
@@ -67,7 +70,7 @@ declare -A __bm_last_pwd
 
 # __bm-tmux-rename-based-on-cwd
 # Prompt callback which will update the tmux window name based on the current
-# directory
+# directory, or rename hook
 function __bm-tmux-rename-based-on-cwd() {
 
     # We have a prompt event arriving on some window, while the user may be
@@ -95,6 +98,12 @@ function __bm-tmux-rename-based-on-cwd() {
         if [ "${bname}" != "${rname}" ]; then
             rname="${rname:0:9}~"
         fi
+        # Invoke all rename hooks that may change the name
+        declare -a tmparr
+        IFS=":" read -a tmparr <<< "${__bm_hook_rename}"
+        for callback in ${tmparr[@]}; do
+            rname="`${callback} ${rname}`"
+        done
         tmux rename-window -t "$(bm-tmux-window-id)" "${rname}"
     fi
 
