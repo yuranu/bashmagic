@@ -27,6 +27,11 @@ function __bm-make-PS1() {
     if [ "$GIT_BRANCH" ]; then
         PS1+="\[${bm_col_lightgreen}\][${GIT_BRANCH}]"
     fi
+    # jj
+    local JJ_CHANGE_ID=`jj log --no-graph --color=always -r @ --template 'change_id.shortest(8)' 2>/dev/null`
+    if [ "$JJ_CHANGE_ID" ]; then
+        PS1+="\[${bm_col_lightgreen}\][jj:${JJ_CHANGE_ID}\[${bm_col_lightgreen}\]]"
+    fi
     if [[ $EUID -ne 0 ]]; then
         PS1+="\[${bm_col_green}\]>" # Normal user
     else
