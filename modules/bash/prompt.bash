@@ -26,11 +26,12 @@ function __bm-make-PS1() {
     local GIT_BRANCH=$(git branch 2>/dev/null | grep '* ' | cut -d ' ' -f2-)
     if [ "$GIT_BRANCH" ]; then
         PS1+="\[${bm_col_lightgreen}\][${GIT_BRANCH}]"
-    fi
-    # jj
-    local JJ_CHANGE_ID=`jj log --no-graph --color=always -r @ --template 'change_id.shortest(8)' 2>/dev/null`
-    if [ "$JJ_CHANGE_ID" ]; then
-        PS1+="\[${bm_col_lightgreen}\][jj:${JJ_CHANGE_ID}\[${bm_col_lightgreen}\]]"
+    else
+        # jj
+        local JJ_CHANGE_ID=`jj log --no-graph --color=always -r @ --template 'change_id.shortest(8)' 2>/dev/null`
+        if [ "$JJ_CHANGE_ID" ]; then
+            PS1+="\[${bm_col_lightgreen}\][jj:${JJ_CHANGE_ID}\[${bm_col_lightgreen}\]]"
+        fi
     fi
     if [[ $EUID -ne 0 ]]; then
         PS1+="\[${bm_col_green}\]>" # Normal user
